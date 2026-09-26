@@ -1,0 +1,17 @@
+{
+  "name": "aquarium-world",
+  "version": "1.0.0",
+  "description": "An interactive aquarium zone explorer with a fact-reveal activity, built with Express, EJS, and SQLite.",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "start": "node index.mjs",
+    "setup-db": "node database/setup.mjs"
+  },
+  "dependencies": {
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "morgan": "^1.10.0",
+    "sqlite3": "^5.1.7"
+  }
+}

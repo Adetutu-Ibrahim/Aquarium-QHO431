@@ -1,0 +1,26 @@
+<%- include('partials/header') %>
+
+<article class="zone-detail">
+  <img src="/images/zone-<%= zone.slug %>.svg"
+       alt="<%= zone.name %>, a <%= zone.habitat_type.toLowerCase() %> zone"
+       class="zone-detail-img">
+
+  <h1><%= zone.name %></h1>
+  <span class="badge badge-<%= zone.habitat_type.toLowerCase().replace(' ', '-') %>"><%= zone.habitat_type %></span>
+  <p><%= zone.description %></p>
+
+  <h2>Exhibits</h2>
+  <!-- exhibits comes from a SEPARATE table, joined by zone_id - a
+       zone can have zero, one, or many exhibits. -->
+  <ul class="exhibit-list">
+    <% exhibits.forEach(exhibit => { %>
+      <li>
+        <strong><%= exhibit.name %></strong>: <%= exhibit.description %>
+      </li>
+    <% }) %>
+  </ul>
+
+  <p><a href="/">&larr; Back to all zones</a></p>
+</article>
+
+<%- include('partials/footer') %>

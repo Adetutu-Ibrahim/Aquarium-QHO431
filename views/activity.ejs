@@ -1,0 +1,49 @@
+<%- include('partials/header') %>
+
+<article class="activity">
+  <h1><%= pageTitle %></h1>
+  <p>Click each tile to reveal a fact about the Coral Reef zone. Find all six!</p>
+
+  <p id="progress" aria-live="polite">0 of 6 facts revealed</p>
+
+  <!-- Each tile pairs a covering button with the fact underneath it.
+       The fact is in the DOM from the start (good for accessibility
+       and for anyone with JavaScript disabled) - the tile is simply
+       removed on click, rather than the fact being injected afterward. -->
+  <div class="fact-grid" id="fact-grid">
+    <div class="fact-tile-wrapper">
+      <button class="fact-tile" data-fact-id="1">?</button>
+      <p class="fact-text" id="fact-1">Clownfish are immune to the sting of the sea anemones they shelter among, thanks to a protective layer of mucus on their skin.</p>
+    </div>
+    <div class="fact-tile-wrapper">
+      <button class="fact-tile" data-fact-id="2">?</button>
+      <p class="fact-text" id="fact-2">Coral reefs cover less than 1% of the ocean floor, yet support roughly a quarter of all known marine species.</p>
+    </div>
+    <div class="fact-tile-wrapper">
+      <button class="fact-tile" data-fact-id="3">?</button>
+      <p class="fact-text" id="fact-3">Staghorn coral can grow up to 20 centimetres in a single year - one of the fastest-growing coral species.</p>
+    </div>
+    <div class="fact-tile-wrapper">
+      <button class="fact-tile" data-fact-id="4">?</button>
+      <p class="fact-text" id="fact-4">All clownfish are born male. If a group's dominant female dies, the next-largest male changes sex to replace her.</p>
+    </div>
+    <div class="fact-tile-wrapper">
+      <button class="fact-tile" data-fact-id="5">?</button>
+      <p class="fact-text" id="fact-5">Coral isn't a plant or a rock - it's a colony of thousands of tiny animals called polyps, each with its own mouth and tentacles.</p>
+    </div>
+    <div class="fact-tile-wrapper">
+      <button class="fact-tile" data-fact-id="6">?</button>
+      <p class="fact-text" id="fact-6">Reefs get their vivid colour from algae living inside coral tissue - a partnership that also feeds the coral.</p>
+    </div>
+  </div>
+
+  <p id="completion-message" class="success-message" role="status" hidden>
+    You've found all six facts! You really know the Coral Reef zone now.
+  </p>
+
+  <p><a href="/zone/coral-reef">&larr; Back to Coral Reef</a></p>
+</article>
+
+<script src="/js/activity.js"></script>
+
+<%- include('partials/footer') %>

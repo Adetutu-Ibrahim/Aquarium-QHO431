@@ -1,0 +1,287 @@
+:root {
+  --ocean-dark: #073b4c;
+  --ocean-mid: #118ab2;
+  --sand: #f7f7f2;
+  --accent: #06d6a0;
+  --error: #ef476f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  background: var(--sand);
+  color: var(--ocean-dark);
+  line-height: 1.5;
+}
+
+/* The skip link is visually hidden until it receives keyboard focus -
+   which is exactly when a keyboard user needs to see it. Never use
+   display:none or visibility:hidden here, since that would remove it
+   from the accessibility tree entirely, not just hide it visually. */
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: #fff;
+  padding: 0.5rem 1rem;
+  z-index: 100;
+  border: 2px solid var(--ocean-dark);
+  color: var(--ocean-dark);
+}
+.skip-link:focus {
+  left: 0;
+}
+
+/* A visible focus style for every interactive element. Never remove
+   the default focus outline (outline: none) without replacing it with
+   something equally visible - doing so makes the site unusable for
+   keyboard users, who rely entirely on seeing where focus currently is. */
+a:focus, button:focus, input:focus, textarea:focus {
+  outline: 3px solid #1a73e8;
+  outline-offset: 2px;
+}
+
+header {
+  background: var(--ocean-dark);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  flex-wrap: wrap;
+}
+
+header .logo {
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+  font-size: 1.25rem;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1.5rem;
+}
+
+header nav a:hover,
+header nav a:focus {
+  text-decoration: underline;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--ocean-mid);
+  color: white;
+  margin-top: 3rem;
+}
+
+.divider {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin: 1.5rem 0;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.zone-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.25rem;
+}
+
+.zone-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+  background: var(--ocean-mid);
+}
+
+.zone-card a {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--ocean-mid);
+  font-weight: bold;
+}
+
+.zone-detail-img {
+  width: 100%;
+  max-height: 260px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.exhibit-list {
+  padding-left: 1.2rem;
+}
+.exhibit-list li {
+  margin-bottom: 0.5rem;
+}
+
+/* Badge colours below were checked with a WCAG contrast calculation
+   against white text (4.5:1 minimum for normal-weight text this
+   size). The obvious choice for Saltwater, --ocean-mid, only reaches
+   3.96:1 and fails - this darker teal passes at 6.76:1 instead. */
+.badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold; color: #fff; margin: 0.4rem 0; }
+.badge-saltwater { background: #0b6478; }  /* 6.76:1 - ocean-mid itself only reaches 3.96:1 and fails */
+.badge-freshwater { background: #2d6a4f; } /* 6.39:1 */
+.badge-touch-pool { background: #b34700; } /* 5.50:1 */
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+fieldset {
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 1rem;
+}
+legend {
+  font-weight: bold;
+  padding: 0 0.4rem;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+.form-field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+.form-field input,
+.form-field textarea {
+  width: 100%;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+.field-hint {
+  font-size: 0.85rem;
+  color: #555;
+  margin: 0.25rem 0 0;
+}
+.field-error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+}
+
+button {
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background: var(--accent);
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--ocean-dark);
+  font-weight: bold;
+}
+
+button:hover,
+button:focus {
+  background: #05b489;
+}
+
+.error-list {
+  color: var(--error);
+  margin: 0;
+}
+.error-summary {
+  background: #fdecea;
+  border: 1px solid var(--error);
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: #05b489;
+  font-weight: bold;
+  background: #e6f4ea;
+  border: 1px solid #05b489;
+  padding: 0.75rem;
+  border-radius: 4px;
+  display: inline-block;
+}
+/* The [hidden] attribute's default browser behaviour (display:none) is
+   normally enough on its own - but any class that sets its own
+   `display` (like .success-message above) has higher specificity and
+   silently wins, making a "hidden" element visible anyway. This rule
+   guarantees [hidden] always wins, regardless of what else is set. */
+[hidden] {
+  display: none !important;
+}
+
+/* --- Original activity: fact-reveal tiles --- */
+.fact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
+.fact-tile-wrapper { position: relative; }
+.fact-tile {
+  width: 100%;
+  aspect-ratio: 1;
+  font-size: 2rem;
+  font-weight: bold;
+  background: var(--ocean-dark);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 0;
+}
+.fact-tile:hover { background: var(--ocean-mid); }
+.fact-tile.revealed {
+  display: none; /* reveals the .fact-text underneath once clicked */
+}
+.fact-text {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: white;
+}
+
+/* Responsive: stack nav, single-column zone grid, and narrower
+   layouts on small screens */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header nav a {
+    margin-left: 0;
+    margin-right: 1.5rem;
+  }
+
+  .zone-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fact-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

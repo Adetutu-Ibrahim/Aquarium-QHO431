@@ -1,0 +1,35 @@
+<%- include('partials/header') %>
+
+<h1><%= pageTitle %></h1>
+<p>Open every day, 9am - 6pm. Explore our zones below.</p>
+
+<!-- A decorative image: purely visual, adds nothing a screen reader
+     user needs to know. alt="" (empty, not missing) tells assistive
+     technology to skip it entirely, rather than reading a filename
+     or being left to guess. -->
+<img src="/images/divider.svg" alt="" class="divider">
+
+<!-- <section> groups a meaningful, nameable chunk of the page - this
+     is different from a plain <div>, which carries no meaning at all
+     to assistive technology. aria-label names this section since it
+     has no visible heading of its own directly above it. -->
+<section class="zone-grid" aria-label="Zone list">
+  <% zones.forEach(zone => { %>
+    <article class="zone-card">
+      <!-- A meaningful image: alt text describes what matters about
+           THIS specific zone, not a generic caption, and does not
+           repeat "image of" or "photo of" - screen readers already
+           announce that it's an image. -->
+      <img src="/images/zone-<%= zone.slug %>.svg"
+           alt="<%= zone.name %>, a <%= zone.habitat_type.toLowerCase() %> zone">
+
+      <h2><%= zone.name %></h2>
+      <span class="badge badge-<%= zone.habitat_type.toLowerCase().replace(' ', '-') %>"><%= zone.habitat_type %></span>
+
+      <p><%= zone.description %></p>
+      <a href="/zone/<%= zone.slug %>">View details for <%= zone.name %></a>
+    </article>
+  <% }) %>
+</section>
+
+<%- include('partials/footer') %>
