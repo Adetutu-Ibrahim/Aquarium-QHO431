@@ -3,26 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= pageTitle %></title>
+  <title><%= pageTitle %> | Aquarium World</title>
+  <script>document.documentElement.classList.add("js");</script>
   <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-  <!-- A skip link: the FIRST focusable thing on the page. A keyboard
-       or screen-reader user can activate this to jump straight past
-       the navigation, instead of tabbing through every nav link on
-       every single page load. It's visually hidden until it receives
-       keyboard focus - see .skip-link in style.css. -->
   <a class="skip-link" href="#main-content">Skip to main content</a>
 
   <header>
     <a href="/" class="logo">Aquarium World</a>
-
-    <!-- aria-label distinguishes this <nav> from any other nav region
-         a page might have (e.g. pagination, a table of contents).
-         With only one nav on this site it's not strictly required,
-         but it's good habit-forming for larger sites. -->
     <nav aria-label="Main navigation">
       <a href="/">Home</a>
+      <a href="/events">Events</a>
       <a href="/activity/coral-reef-facts">Zone Activity</a>
       <a href="/faq">FAQ</a>
       <a href="/contact">Contact</a>

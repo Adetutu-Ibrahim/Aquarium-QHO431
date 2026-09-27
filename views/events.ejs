@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<h1><%= pageTitle %></h1>
+<p>Discover conservation talks, family activities and behind-the-scenes experiences throughout the year.</p>
+
+<form id="event-filter-form" class="event-filters" action="/events" method="GET" aria-label="Filter events">
+  <div class="filter-field">
+    <label for="year-select">Year</label>
+    <select id="year-select" name="year">
+      <% eventYears.forEach(year => { %>
+        <option value="<%= year %>" <%= year === selectedYear ? "selected" : "" %>><%= year %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="filter-field">
+    <label for="category-select">Category</label>
+    <select id="category-select" name="category">
+      <option value="all" <%= selectedCategory === "all" ? "selected" : "" %>>All categories</option>
+      <% categories.forEach(category => { %>
+        <option value="<%= category %>" <%= category === selectedCategory ? "selected" : "" %>><%= category %></option>
+      <% }) %>
+    </select>
+  </div>
+
+  <button type="submit" class="filter-submit">Apply filters</button>
+</form>
+
+<p class="field-hint">With JavaScript enabled, changing a filter updates the list instantly using AJAX. The Apply filters button also works without JavaScript.</p>
+
+<ul id="events-list" aria-live="polite" aria-busy="false">
+  <% if (events.length === 0) { %>
+    <li>No events found for this year and category.</li>
+  <% } else { %>
+    <% events.forEach(event => { %>
+      <li>
+        <a href="/events/<%= event.id %>">
+          <strong><%= event.title %></strong> &mdash; <%= event.event_date %> (<%= event.category %>)
+        </a>
+      </li>
+    <% }) %>
+  <% } %>
+</ul>
+
+<script src="/js/events.js"></script>
+
+<%- include('partials/footer') %>

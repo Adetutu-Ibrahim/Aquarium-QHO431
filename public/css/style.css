@@ -1,48 +1,70 @@
 :root {
   --ocean-dark: #073b4c;
-  --ocean-mid: #118ab2;
+  --ocean-mid: #0b6478;
+  --ocean-light: #dff3f7;
   --sand: #f7f7f2;
+  --surface: #ffffff;
   --accent: #06d6a0;
-  --error: #ef476f;
+  --accent-hover: #05b489;
+  --error: #a61b3c;
+  --success: #1f6b3a;
+  --border: #c8d3d7;
 }
 
 * {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: system-ui, Arial, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
   background: var(--sand);
   color: var(--ocean-dark);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
-/* The skip link is visually hidden until it receives keyboard focus -
-   which is exactly when a keyboard user needs to see it. Never use
-   display:none or visibility:hidden here, since that would remove it
-   from the accessibility tree entirely, not just hide it visually. */
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--ocean-mid);
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* The skip link remains available to keyboard and screen-reader users
+   without taking up space until it receives keyboard focus. */
 .skip-link {
   position: absolute;
-  left: -999px;
+  left: -9999px;
   top: 0;
   background: #fff;
-  padding: 0.5rem 1rem;
-  z-index: 100;
-  border: 2px solid var(--ocean-dark);
   color: var(--ocean-dark);
-}
-.skip-link:focus {
-  left: 0;
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--ocean-dark);
+  z-index: 1000;
 }
 
-/* A visible focus style for every interactive element. Never remove
-   the default focus outline (outline: none) without replacing it with
-   something equally visible - doing so makes the site unusable for
-   keyboard users, who rely entirely on seeing where focus currently is. */
-a:focus, button:focus, input:focus, textarea:focus {
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* Visible keyboard focus is retained throughout the interface. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
   outline: 3px solid #1a73e8;
-  outline-offset: 2px;
+  outline-offset: 3px;
 }
 
 header {
@@ -52,31 +74,129 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 header .logo {
   color: white;
-  font-weight: bold;
+  font-size: 1.35rem;
+  font-weight: 800;
   text-decoration: none;
-  font-size: 1.25rem;
+  letter-spacing: 0.02em;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 header nav a {
   color: white;
   text-decoration: none;
-  margin-left: 1.5rem;
+  font-weight: 650;
 }
 
 header nav a:hover,
-header nav a:focus {
+header nav a:focus-visible {
   text-decoration: underline;
 }
 
 main {
-  max-width: 900px;
+  width: min(100% - 2rem, 980px);
   margin: 0 auto;
-  padding: 2rem;
+  padding: 2rem 0 3rem;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--ocean-dark), var(--ocean-mid));
+  color: #fff;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 12px;
+}
+
+.hero h1 {
+  margin-top: 0;
+}
+
+.opening-times {
+  font-size: 1.2rem;
+  margin-bottom: 0.35rem;
+}
+
+.divider {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin: 1.25rem 0 1.75rem;
+  object-fit: cover;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.zone-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgb(7 59 76 / 0.08);
+  padding-bottom: 1.25rem;
+}
+
+.zone-card img {
+  display: block;
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  background: var(--ocean-mid);
+}
+
+.zone-card h2,
+.zone-card p,
+.zone-card a {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.zone-card a {
+  display: inline-block;
+  font-weight: 750;
+}
+
+.zone-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.zone-detail-img {
+  display: block;
+  width: 100%;
+  max-height: 310px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: var(--ocean-mid);
+}
+
+.exhibit-list {
+  padding-left: 1.25rem;
+}
+
+.exhibit-list li {
+  margin-bottom: 0.65rem;
 }
 
 footer {
@@ -84,197 +204,308 @@ footer {
   padding: 1.5rem;
   background: var(--ocean-mid);
   color: white;
-  margin-top: 3rem;
 }
 
-.divider {
-  display: block;
-  width: 100%;
-  height: 40px;
-  margin: 1.5rem 0;
+footer p {
+  margin: 0;
 }
 
-.zone-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-}
-
-.zone-card {
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 1.25rem;
-}
-
-.zone-card img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 4px;
-  margin-bottom: 0.75rem;
-  background: var(--ocean-mid);
-}
-
-.zone-card a {
-  display: inline-block;
-  margin-top: 0.5rem;
-  color: var(--ocean-mid);
-  font-weight: bold;
-}
-
-.zone-detail-img {
-  width: 100%;
-  max-height: 260px;
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 1rem;
-}
-
-.exhibit-list {
-  padding-left: 1.2rem;
-}
-.exhibit-list li {
-  margin-bottom: 0.5rem;
-}
-
-/* Badge colours below were checked with a WCAG contrast calculation
-   against white text (4.5:1 minimum for normal-weight text this
-   size). The obvious choice for Saltwater, --ocean-mid, only reaches
-   3.96:1 and fails - this darker teal passes at 6.76:1 instead. */
-.badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold; color: #fff; margin: 0.4rem 0; }
-.badge-saltwater { background: #0b6478; }  /* 6.76:1 - ocean-mid itself only reaches 3.96:1 and fails */
-.badge-freshwater { background: #2d6a4f; } /* 6.39:1 */
-.badge-touch-pool { background: #b34700; } /* 5.50:1 */
-
+/* Forms */
 form {
-  display: flex;
-  flex-direction: column;
-  max-width: 500px;
+  max-width: 600px;
 }
 
 fieldset {
-  border: 1px solid #ddd;
-  border-radius: 6px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
   padding: 1rem;
+  background: var(--surface);
 }
+
 legend {
-  font-weight: bold;
+  font-weight: 750;
   padding: 0 0.4rem;
 }
 
 .form-field {
   margin-bottom: 1rem;
 }
+
 .form-field label {
   display: block;
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 0.3rem;
 }
+
 .form-field input,
-.form-field textarea {
+.form-field textarea,
+select {
   width: 100%;
-  padding: 0.5rem;
-  font-size: 1rem;
-  border: 1px solid #aaa;
-  border-radius: 4px;
+  padding: 0.65rem;
+  font: inherit;
+  color: var(--ocean-dark);
+  background: #fff;
+  border: 1px solid #7d8e94;
+  border-radius: 5px;
 }
+
 .field-hint {
-  font-size: 0.85rem;
-  color: #555;
-  margin: 0.25rem 0 0;
-}
-.field-error {
-  color: var(--error);
+  color: #46565c;
   font-size: 0.9rem;
   margin: 0.25rem 0 0;
 }
 
+.field-error {
+  color: var(--error);
+  font-size: 0.9rem;
+  font-weight: 650;
+  margin: 0.25rem 0 0;
+}
+
+[aria-invalid="true"] {
+  border-color: var(--error);
+  border-width: 2px;
+}
+
 button {
-  margin-top: 1.5rem;
-  padding: 0.75rem;
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
   background: var(--accent);
-  border: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  cursor: pointer;
   color: var(--ocean-dark);
-  font-weight: bold;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
 }
 
 button:hover,
-button:focus {
-  background: #05b489;
+button:focus-visible {
+  background: var(--accent-hover);
 }
 
-.error-list {
-  color: var(--error);
-  margin: 0;
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
+
 .error-summary {
-  background: #fdecea;
+  background: #fff0f3;
+  color: var(--error);
   border: 1px solid var(--error);
-  padding: 0.75rem;
-  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
   margin-bottom: 1rem;
 }
 
+.error-summary p {
+  font-weight: 750;
+  margin: 0;
+}
+
+.error-summary ul {
+  margin-bottom: 0;
+}
+
 .success-message {
-  color: #05b489;
-  font-weight: bold;
-  background: #e6f4ea;
-  border: 1px solid #05b489;
-  padding: 0.75rem;
-  border-radius: 4px;
+  color: var(--success);
+  background: #edf8f0;
+  border: 1px solid var(--success);
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  font-weight: 750;
   display: inline-block;
 }
-/* The [hidden] attribute's default browser behaviour (display:none) is
-   normally enough on its own - but any class that sets its own
-   `display` (like .success-message above) has higher specificity and
-   silently wins, making a "hidden" element visible anyway. This rule
-   guarantees [hidden] always wins, regardless of what else is set. */
+
 [hidden] {
   display: none !important;
 }
 
-/* --- Original activity: fact-reveal tiles --- */
-.fact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0; }
-.fact-tile-wrapper { position: relative; }
+/* AJAX exhibit search */
+.search-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-section h2 {
+  margin-top: 0;
+}
+
+.search-section label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+#exhibit-search {
+  width: min(100%, 480px);
+  padding: 0.65rem;
+  font: inherit;
+  border: 1px solid #7d8e94;
+  border-radius: 5px;
+}
+
+#search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+
+#search-results li {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #d9e1e3;
+}
+
+#search-results li:last-child {
+  border-bottom: 0;
+}
+
+#search-results p {
+  margin: 0.25rem 0 0;
+}
+
+/* Events */
+.event-filters {
+  display: flex;
+  gap: 1.25rem;
+  align-items: end;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.filter-field {
+  min-width: 190px;
+}
+
+.filter-field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+#events-list {
+  list-style: none;
+  padding: 0;
+}
+
+#events-list li {
+  background: var(--surface);
+  border-left: 4px solid var(--ocean-mid);
+  margin-bottom: 0.7rem;
+  padding: 0.8rem 1rem;
+}
+
+#events-list a {
+  text-decoration: none;
+}
+
+#events-list a:hover,
+#events-list a:focus-visible {
+  text-decoration: underline;
+}
+
+.event-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 750;
+  color: #fff;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.badge-easy {
+  background: #246b3d;
+}
+
+.badge-hard {
+  background: #9b1c31;
+}
+
+/* Coral Reef fact-reveal activity.
+   Without JavaScript, the buttons are hidden and every fact remains
+   readable. With JavaScript, facts are hidden until their button is used. */
+.js-only {
+  display: none;
+}
+
+.js .js-only {
+  display: block;
+}
+
+.fact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.fact-tile-wrapper {
+  min-width: 0;
+}
+
 .fact-tile {
   width: 100%;
   aspect-ratio: 1;
-  font-size: 2rem;
-  font-weight: bold;
+  margin-top: 0;
   background: var(--ocean-dark);
   color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 0;
+  font-size: 2rem;
 }
-.fact-tile:hover { background: var(--ocean-mid); }
+
+.fact-tile:hover,
+.fact-tile:focus-visible {
+  background: var(--ocean-mid);
+}
+
 .fact-tile.revealed {
-  display: none; /* reveals the .fact-text underneath once clicked */
+  display: none !important;
 }
+
 .fact-text {
   margin: 0;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
   border-radius: 6px;
-  background: white;
+  background: var(--surface);
 }
 
-/* Responsive: stack nav, single-column zone grid, and narrower
-   layouts on small screens */
-@media (max-width: 600px) {
+.js .fact-text {
+  display: none;
+}
+
+.js .fact-text.revealed {
+  display: block;
+}
+
+@media (max-width: 700px) {
   header {
-    flex-direction: column;
     align-items: flex-start;
+    padding: 1rem;
   }
 
-  header nav a {
-    margin-left: 0;
-    margin-right: 1.5rem;
+  header nav {
+    width: 100%;
+    gap: 0.6rem 1rem;
+  }
+
+  main {
+    width: min(100% - 1.25rem, 980px);
+    padding-top: 1rem;
   }
 
   .zone-grid {
@@ -282,6 +513,27 @@ button:focus {
   }
 
   .fact-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .event-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .filter-field {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .fact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-submit {
+  margin-top: 0;
+  align-self: end;
 }

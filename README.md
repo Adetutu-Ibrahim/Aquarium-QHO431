@@ -1,55 +1,63 @@
 # Aquarium World
 
-An interactive zone explorer for a fictional aquarium, built with
-Express, EJS, and SQLite — including an original fact-reveal activity
-tied to the Coral Reef zone.
+A promotional website for a fictional indoor aquarium, built with the technologies specified in the assessment brief: HTML, CSS, JavaScript, Node.js, Express, SQLite3 and EJS.
 
-## Features
+## Main features
 
-| Feature | Where to look |
-|---|---|
-| Router-based routes, separate from the app entrypoint | `routes/pages.mjs` |
-| App-wide custom middleware (request logging) | `middleware/logger.mjs` |
-| Route-specific middleware (contact form validation) | `middleware/validateContact.mjs`, chained onto `POST /contact` in `routes/pages.mjs` |
-| Centralized error-handling middleware (4-argument signature) | `index.mjs` — renders `views/error.ejs` |
-| A styled 404 page for unknown zones | `views/404.ejs` |
-| One-to-many data relationships | `zones` → `exhibits`, joined by `zone_id` |
-| An original interactive activity | `routes/pages.mjs` — `/activity/coral-reef-facts` |
-| DOM selection, event listeners, and plain-JS state | `public/js/activity.js` |
-| A defensive guard against a real edge case (double-clicking a revealed tile) | `public/js/activity.js` |
-| Content present in the DOM from the start (works without JS, and for assistive tech) | `views/activity.ejs` — fact text sits behind each tile, not injected afterward |
-| `aria-live` announcing form results and activity progress automatically | `views/contact.ejs`, `views/activity.ejs` |
-| A skip link, visible focus states, and meaningful image alt text | `views/partials/header.ejs`, `public/css/style.css`, `views/home.ejs` |
-| Client-side validation as a UX nicety, never a substitute for server-side validation | `public/js/main.js` vs. `middleware/validateContact.mjs` |
-| Contrast-checked badge colours (a naive `--ocean-mid` badge fails WCAG AA at 3.96:1) | `public/css/style.css` — see the comment above `.badge-saltwater` |
+- Four database-driven aquarium zones with database-driven exhibits/experiences
+- Opening times displayed prominently across the site
+- FAQ and contact pages
+- Contact form with client-side JavaScript validation, server-side validation, parameterised SQLite insertion and AJAX submission with a normal POST fallback
+- Original Coral Reef fact-reveal JavaScript activity
+- AJAX exhibit search backed by SQLite
+- Database-driven special events feature
+- Event filtering by year and category using AJAX
+- Individual event detail pages showing whether an event is upcoming or has already occurred
+- Styled 404 and error pages
+- Responsive layout, skip link, visible keyboard focus, labelled form controls, live regions and meaningful image alternative text
 
-## Zones
+## Run the project
 
-- **Coral Reef** (Saltwater) — clownfish and staghorn coral
-- **Deep Ocean** (Saltwater) — a wobbegong shark and a giant Pacific octopus
-- **Rainforest River** (Freshwater) — red-bellied piranha and arapaima
-- **Rockpool Discovery** (Touch Pool) — starfish and hermit crabs, hands-on
+The submitted database is already included.
 
-## Running it
-
-```
+```text
 npm install
-npm run setup-db
 node index.mjs
 ```
 
-Visit http://localhost:5000. The database is created fresh on first
-run of `setup-db`; running it again is safe and just skips reseeding.
+Then visit:
 
-Try the activity at http://localhost:5000/activity/coral-reef-facts —
-click through all six tiles.
+```text
+http://localhost:5000
+```
 
-## A note on the artwork
+The optional database setup script can be used to create/seed a fresh database if needed:
 
-The zone images are simple hand-authored SVG illustrations in the
-site's own colour palette, not photographs — there was no image
-source available to pull real aquarium photography from. Swap the
-files in `public/images/` for real photos any time; the `<img>` tags
-and their alt text in `views/home.ejs` and `views/zone.ejs` don't need
-to change, since they reference the files by zone slug regardless of
-what's actually inside them.
+```text
+npm run setup-db
+```
+
+## Project structure
+
+- `index.mjs` - Express application entry point and central error handler
+- `routes/pages.mjs` - website routes plus AJAX API routes
+- `database/site.db` - submitted SQLite database
+- `database/db.mjs` - SQLite connection and Promise helpers
+- `database/setup.mjs` - schema/seed script
+- `middleware/` - custom logging and contact validation middleware
+- `views/` - EJS pages and partials
+- `public/css/` - site styling and responsive rules
+- `public/js/` - client-side JavaScript for search, events, contact form and activity
+- `public/images/` - hand-authored SVG artwork used by the zone pages
+
+## AJAX/database features
+
+The exhibit search calls `/api/search`, which performs a parameterised database query and returns JSON. The browser then updates the result list without reloading the page.
+
+The events page calls `/api/events` when the year or category changes. The server queries the `events` table and returns JSON; the browser replaces the event list without a page reload. Available event years are also derived from the database.
+
+The contact form is progressively enhanced. With JavaScript enabled it sends the validated form to `/api/contact` using `fetch()`. If JavaScript is unavailable, the standard `/contact` POST route continues to work.
+
+## Notes
+
+The site is promotional only and does not include ticket sales, ticket prices or booking functionality.

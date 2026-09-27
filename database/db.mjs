@@ -7,6 +7,11 @@ const sqlite = sqlite3.verbose();
 
 export const db = new sqlite.Database(path.join(__dirname, "site.db"));
 
+// SQLite does not reliably enforce declared foreign keys unless this
+// setting is enabled for the connection. Queue it immediately after
+// opening the database so later queries run with referential integrity on.
+db.run("PRAGMA foreign_keys = ON");
+
 export function all(sql, params = []) {
   return new Promise((resolve, reject) => {
     db.all(sql, params, (err, rows) => (err ? reject(err) : resolve(rows)));

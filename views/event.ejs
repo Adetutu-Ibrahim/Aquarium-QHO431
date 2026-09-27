@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<article class="event-detail">
+  <h1><%= event.title %></h1>
+
+  <!-- The past/upcoming status, computed in the route from comparing
+       the event's date to today's date. -->
+  <% if (hasOccurred) { %>
+    <span class="badge badge-hard">This event has already taken place</span>
+  <% } else { %>
+    <span class="badge badge-easy">Upcoming</span>
+  <% } %>
+
+  <p><strong>Date:</strong> <%= event.event_date %></p>
+  <p><strong>Category:</strong> <%= event.category %></p>
+  <p><%= event.description %></p>
+
+  <p><a href="/events">&larr; Back to all events</a></p>
+</article>
+
+<%- include('partials/footer') %>

@@ -2,19 +2,17 @@
 
 <article class="contact">
   <h1><%= pageTitle %></h1>
+  <p>Send us a question about our zones, exhibits, accessibility or educational visits.</p>
 
-  <!-- aria-live="polite" means a screen reader announces this region's
-       content automatically whenever it changes - the user doesn't
-       need to go looking for the result of their submission. -->
-  <div aria-live="polite">
+  <div id="contact-status" aria-live="polite">
     <% if (submitted) { %>
-      <p class="success-message" role="status">Thanks - your message has been sent.</p>
+      <p class="success-message" role="status">Thank you - your message has been sent!</p>
     <% } %>
 
-    <% if (errors && errors.length > 0) { %>
+    <% if (errors) { %>
       <div class="error-summary" role="alert">
         <p>Please fix the following:</p>
-        <ul class="error-list">
+        <ul>
           <% errors.forEach(error => { %>
             <li><%= error %></li>
           <% }) %>
@@ -23,31 +21,26 @@
     <% } %>
   </div>
 
-  <form id="contact-form" action="/contact" method="POST" novalidate>
-    <!-- <fieldset> and <legend> group related fields under one
-         announced label - more useful on forms with multiple related
-         groups than this simple example, but worth introducing here
-         since it's easy to retrofit later once forms grow. -->
+  <form id="contact-form" action="/contact" data-ajax-action="/api/contact" method="POST" novalidate>
     <fieldset>
       <legend>Send us a message</legend>
 
       <div class="form-field">
         <label for="name">Name</label>
-        <input type="text" id="name" name="name" required>
+        <input type="text" id="name" name="name" autocomplete="name"
+               maxlength="100" value="<%= values?.name || '' %>" required>
       </div>
 
       <div class="form-field">
         <label for="email">Email</label>
-        <!-- aria-describedby links this field to its hint text below,
-             so a screen reader announces the hint along with the
-             label when the field receives focus. -->
-        <input type="email" id="email" name="email" aria-describedby="email-hint" required>
+        <input type="email" id="email" name="email" autocomplete="email"
+               aria-describedby="email-hint" maxlength="254" value="<%= values?.email || '' %>" required>
         <p id="email-hint" class="field-hint">We'll only use this to reply to your message.</p>
       </div>
 
       <div class="form-field">
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="5" required></textarea>
+        <textarea id="message" name="message" rows="5" maxlength="2000" required><%= values?.message || '' %></textarea>
       </div>
 
       <button type="submit">Send Message</button>

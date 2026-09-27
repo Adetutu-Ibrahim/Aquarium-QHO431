@@ -1,18 +1,26 @@
 <%- include('partials/header') %>
 
 <article class="zone-detail">
+  <% const zoneAlt = {
+    "coral-reef": "Colourful coral reef scene with tropical fish",
+    "deep-ocean": "Deep ocean scene with a shark and octopus",
+    "rainforest-river": "Tropical freshwater river scene with fish and plants",
+    "rockpool-discovery": "Coastal rockpool scene with starfish and crabs"
+  }[zone.slug] || `${zone.name} themed marine illustration`; %>
+
   <img src="/images/zone-<%= zone.slug %>.svg"
-       alt="<%= zone.name %>, a <%= zone.habitat_type.toLowerCase() %> zone"
+       alt="<%= zoneAlt %>"
        class="zone-detail-img">
 
-  <h1><%= zone.name %></h1>
-  <span class="badge badge-<%= zone.habitat_type.toLowerCase().replace(' ', '-') %>"><%= zone.habitat_type %></span>
+  <h1><%= pageTitle %></h1>
   <p><%= zone.description %></p>
 
-  <h2>Exhibits</h2>
-  <!-- exhibits comes from a SEPARATE table, joined by zone_id - a
-       zone can have zero, one, or many exhibits. -->
-  <ul class="exhibit-list">
+  <% if (zone.slug === "coral-reef") { %>
+    <p><a href="/activity/coral-reef-facts">Try the Coral Reef Fact Reveal activity &rarr;</a></p>
+  <% } %>
+
+  <h2>Exhibits and experiences</h2>
+  <ul class="exhibit-list" aria-label="Exhibits in this zone">
     <% exhibits.forEach(exhibit => { %>
       <li>
         <strong><%= exhibit.name %></strong>: <%= exhibit.description %>

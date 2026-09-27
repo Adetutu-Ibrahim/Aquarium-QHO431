@@ -1,35 +1,60 @@
 // middleware/validateContact.mjs
-//
-// A route-specific middleware, rather than an app-wide one. This only
-// runs for the one route it's attached to (see routes/pages.mjs),
-// instead of every single request like requestLogger does.
-//
-// Its job is entirely to check the incoming data and decide whether
-// to let the request continue (next()) or stop it early with an
-// error response - it does NOT save anything to the database itself.
+// Shared validation for both the normal HTML form submission and the
+// AJAX contact endpoint. Server-side validation remains essential even
+// though the browser also performs client-side checks.
 
-export function validateContact(req, res, next) {
-  const { name, email, message } = req.body;
+function asText(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+export function getContactErrors(body = {}) {
+  const name = asText(body.name);
+  const email = asText(body.email);
+  const message = asText(body.message);
   const errors = [];
 
-  if (!name || name.trim().length === 0) {
+  if (name.length === 0) {
     errors.push("Please enter your name.");
+  } else if (name.length > 100) {
+    errors.push("Please keep your name to 100 characters or fewer.");
   }
 
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     errors.push("Please enter a valid email address.");
+  } else if (email.length > 254) {
+    errors.push("Please keep your email address to 254 characters or fewer.");
   }
 
-  if (!message || message.trim().length === 0) {
+  if (message.length === 0) {
     errors.push("Please enter a message.");
+  } else if (message.length > 2000) {
+    errors.push("Please keep your message to 2000 characters or fewer.");
   }
+
+  return errors;
+}
+
+export function validateContact(req, res, next) {
+  const errors = getContactErrors(req.body);
 
   if (errors.length > 0) {
-    // Stop here - render the form again with errors, and do NOT call
-    // next(). The route handler after this middleware never runs.
-    return res.status(400).render("contact", { pageTitle: "Contact Us", errors, submitted: false });
+    return res.status(400).render("contact", {
+      pageTitle: "Contact Us",
+      errors,
+      submitted: false,
+      values: req.body
+    });
   }
 
-  // Everything is valid - pass control on to the actual route handler.
+  next();
+}
+
+export function validateContactApi(req, res, next) {
+  const errors = getContactErrors(req.body);
+
+  if (errors.length > 0) {
+    return res.status(400).json({ errors });
+  }
+
   next();
 }
