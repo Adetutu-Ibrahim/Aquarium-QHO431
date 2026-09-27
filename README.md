@@ -1,63 +1,23 @@
-# Aquarium World
+<%- include('partials/header') %>
 
-A promotional website for a fictional indoor aquarium, built with the technologies specified in the assessment brief: HTML, CSS, JavaScript, Node.js, Express, SQLite3 and EJS.
+<h1><%= pageTitle %></h1>
 
-## Main features
+<h2>What time do you open?</h2>
+<p>We're open every day from 9am to 6pm, including bank holidays.</p>
 
-- Four database-driven aquarium zones with database-driven exhibits/experiences
-- Opening times displayed prominently across the site
-- FAQ and contact pages
-- Contact form with client-side JavaScript validation, server-side validation, parameterised SQLite insertion and AJAX submission with a normal POST fallback
-- Original Coral Reef fact-reveal JavaScript activity
-- AJAX exhibit search backed by SQLite
-- Database-driven special events feature
-- Event filtering by year and category using AJAX
-- Individual event detail pages showing whether an event is upcoming or has already occurred
-- Styled 404 and error pages
-- Responsive layout, skip link, visible keyboard focus, labelled form controls, live regions and meaningful image alternative text
+<h2>How long should we plan to stay?</h2>
+<p>Most families spend around two to three hours exploring all four zones at a relaxed pace.</p>
 
-## Run the project
+<h2>Is the Rockpool Discovery touch pool safe for young children?</h2>
+<p>Yes. A member of staff supervises the touch pool at all times and will show children how to interact with the animals gently.</p>
 
-The submitted database is already included.
+<h2>Can we bring a pushchair?</h2>
+<p>Yes. All public walkways are step-free and wide enough for pushchairs and wheelchairs.</p>
 
-```text
-npm install
-node index.mjs
-```
+<h2>Is food and drink available on site?</h2>
+<p>There is a café near the entrance, and picnic tables are available in the outdoor courtyard.</p>
 
-Then visit:
+<h2>Do you welcome school and community groups?</h2>
+<p>Yes. Please use the contact form to discuss educational visits, group needs and accessibility requirements.</p>
 
-```text
-http://localhost:5000
-```
-
-The optional database setup script can be used to create/seed a fresh database if needed:
-
-```text
-npm run setup-db
-```
-
-## Project structure
-
-- `index.mjs` - Express application entry point and central error handler
-- `routes/pages.mjs` - website routes plus AJAX API routes
-- `database/site.db` - submitted SQLite database
-- `database/db.mjs` - SQLite connection and Promise helpers
-- `database/setup.mjs` - schema/seed script
-- `middleware/` - custom logging and contact validation middleware
-- `views/` - EJS pages and partials
-- `public/css/` - site styling and responsive rules
-- `public/js/` - client-side JavaScript for search, events, contact form and activity
-- `public/images/` - hand-authored SVG artwork used by the zone pages
-
-## AJAX/database features
-
-The exhibit search calls `/api/search`, which performs a parameterised database query and returns JSON. The browser then updates the result list without reloading the page.
-
-The events page calls `/api/events` when the year or category changes. The server queries the `events` table and returns JSON; the browser replaces the event list without a page reload. Available event years are also derived from the database.
-
-The contact form is progressively enhanced. With JavaScript enabled it sends the validated form to `/api/contact` using `fetch()`. If JavaScript is unavailable, the standard `/contact` POST route continues to work.
-
-## Notes
-
-The site is promotional only and does not include ticket sales, ticket prices or booking functionality.
+<%- include('partials/footer') %>

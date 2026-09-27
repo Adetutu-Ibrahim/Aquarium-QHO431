@@ -1,15 +1,21 @@
-{
-  "name": "aquarium-world",
-  "version": "1.0.0",
-  "type": "module",
-  "main": "index.mjs",
-  "scripts": {
-    "start": "node index.mjs",
-    "setup-db": "node database/setup.mjs"
-  },
-  "dependencies": {
-    "ejs": "^3.1.10",
-    "express": "^4.19.2",
-    "sqlite3": "^5.1.7"
-  }
-}
+<%- include('partials/header') %>
+
+<article class="event-detail">
+  <h1><%= event.title %></h1>
+
+  <!-- The past/upcoming status, computed in the route from comparing
+       the event's date to today's date. -->
+  <% if (hasOccurred) { %>
+    <span class="badge badge-hard">This event has already taken place</span>
+  <% } else { %>
+    <span class="badge badge-easy">Upcoming</span>
+  <% } %>
+
+  <p><strong>Date:</strong> <%= event.event_date %></p>
+  <p><strong>Category:</strong> <%= event.category %></p>
+  <p><%= event.description %></p>
+
+  <p><a href="/events">&larr; Back to all events</a></p>
+</article>
+
+<%- include('partials/footer') %>

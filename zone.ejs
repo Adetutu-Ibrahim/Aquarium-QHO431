@@ -1,0 +1,51 @@
+<%- include('partials/header') %>
+
+<article class="contact">
+  <h1><%= pageTitle %></h1>
+  <p>Send us a question about our zones, exhibits, accessibility or educational visits.</p>
+
+  <div id="contact-status" aria-live="polite">
+    <% if (submitted) { %>
+      <p class="success-message" role="status">Thank you - your message has been sent!</p>
+    <% } %>
+
+    <% if (errors) { %>
+      <div class="error-summary" role="alert">
+        <p>Please fix the following:</p>
+        <ul>
+          <% errors.forEach(error => { %>
+            <li><%= error %></li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
+  </div>
+
+  <form id="contact-form" action="/contact" data-ajax-action="/api/contact" method="POST" novalidate>
+    <fieldset>
+      <legend>Send us a message</legend>
+
+      <div class="form-field">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" autocomplete="name"
+               maxlength="100" value="<%= values?.name || '' %>" required>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" autocomplete="email"
+               aria-describedby="email-hint" maxlength="254" value="<%= values?.email || '' %>" required>
+        <p id="email-hint" class="field-hint">We'll only use this to reply to your message.</p>
+      </div>
+
+      <div class="form-field">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" maxlength="2000" required><%= values?.message || '' %></textarea>
+      </div>
+
+      <button type="submit">Send Message</button>
+    </fieldset>
+  </form>
+</article>
+
+<%- include('partials/footer') %>

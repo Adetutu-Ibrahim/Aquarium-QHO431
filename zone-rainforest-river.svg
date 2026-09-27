@@ -1,0 +1,539 @@
+:root {
+  --ocean-dark: #073b4c;
+  --ocean-mid: #0b6478;
+  --ocean-light: #dff3f7;
+  --sand: #f7f7f2;
+  --surface: #ffffff;
+  --accent: #06d6a0;
+  --accent-hover: #05b489;
+  --error: #a61b3c;
+  --success: #1f6b3a;
+  --border: #c8d3d7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  background: var(--sand);
+  color: var(--ocean-dark);
+  line-height: 1.6;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  color: var(--ocean-mid);
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* The skip link remains available to keyboard and screen-reader users
+   without taking up space until it receives keyboard focus. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: #fff;
+  color: var(--ocean-dark);
+  padding: 0.6rem 1rem;
+  border: 2px solid var(--ocean-dark);
+  z-index: 1000;
+}
+
+.skip-link:focus {
+  left: 0.5rem;
+  top: 0.5rem;
+}
+
+/* Visible keyboard focus is retained throughout the interface. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid #1a73e8;
+  outline-offset: 3px;
+}
+
+header {
+  background: var(--ocean-dark);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+header .logo {
+  color: white;
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  font-weight: 650;
+}
+
+header nav a:hover,
+header nav a:focus-visible {
+  text-decoration: underline;
+}
+
+main {
+  width: min(100% - 2rem, 980px);
+  margin: 0 auto;
+  padding: 2rem 0 3rem;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.2;
+}
+
+.hero {
+  background: linear-gradient(135deg, var(--ocean-dark), var(--ocean-mid));
+  color: #fff;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border-radius: 12px;
+}
+
+.hero h1 {
+  margin-top: 0;
+}
+
+.opening-times {
+  font-size: 1.2rem;
+  margin-bottom: 0.35rem;
+}
+
+.divider {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin: 1.25rem 0 1.75rem;
+  object-fit: cover;
+}
+
+.zone-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.zone-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgb(7 59 76 / 0.08);
+  padding-bottom: 1.25rem;
+}
+
+.zone-card img {
+  display: block;
+  width: 100%;
+  height: 175px;
+  object-fit: cover;
+  background: var(--ocean-mid);
+}
+
+.zone-card h2,
+.zone-card p,
+.zone-card a {
+  margin-left: 1.25rem;
+  margin-right: 1.25rem;
+}
+
+.zone-card a {
+  display: inline-block;
+  font-weight: 750;
+}
+
+.zone-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.zone-detail-img {
+  display: block;
+  width: 100%;
+  max-height: 310px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background: var(--ocean-mid);
+}
+
+.exhibit-list {
+  padding-left: 1.25rem;
+}
+
+.exhibit-list li {
+  margin-bottom: 0.65rem;
+}
+
+footer {
+  text-align: center;
+  padding: 1.5rem;
+  background: var(--ocean-mid);
+  color: white;
+}
+
+footer p {
+  margin: 0;
+}
+
+/* Forms */
+form {
+  max-width: 600px;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  background: var(--surface);
+}
+
+legend {
+  font-weight: 750;
+  padding: 0 0.4rem;
+}
+
+.form-field {
+  margin-bottom: 1rem;
+}
+
+.form-field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.form-field input,
+.form-field textarea,
+select {
+  width: 100%;
+  padding: 0.65rem;
+  font: inherit;
+  color: var(--ocean-dark);
+  background: #fff;
+  border: 1px solid #7d8e94;
+  border-radius: 5px;
+}
+
+.field-hint {
+  color: #46565c;
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0;
+}
+
+.field-error {
+  color: var(--error);
+  font-size: 0.9rem;
+  font-weight: 650;
+  margin: 0.25rem 0 0;
+}
+
+[aria-invalid="true"] {
+  border-color: var(--error);
+  border-width: 2px;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: var(--accent);
+  color: var(--ocean-dark);
+  border: 2px solid transparent;
+  border-radius: 5px;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+
+button:hover,
+button:focus-visible {
+  background: var(--accent-hover);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.error-summary {
+  background: #fff0f3;
+  color: var(--error);
+  border: 1px solid var(--error);
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.error-summary p {
+  font-weight: 750;
+  margin: 0;
+}
+
+.error-summary ul {
+  margin-bottom: 0;
+}
+
+.success-message {
+  color: var(--success);
+  background: #edf8f0;
+  border: 1px solid var(--success);
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  font-weight: 750;
+  display: inline-block;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* AJAX exhibit search */
+.search-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.search-section h2 {
+  margin-top: 0;
+}
+
+.search-section label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+#exhibit-search {
+  width: min(100%, 480px);
+  padding: 0.65rem;
+  font: inherit;
+  border: 1px solid #7d8e94;
+  border-radius: 5px;
+}
+
+#search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+
+#search-results li {
+  padding: 0.65rem 0;
+  border-bottom: 1px solid #d9e1e3;
+}
+
+#search-results li:last-child {
+  border-bottom: 0;
+}
+
+#search-results p {
+  margin: 0.25rem 0 0;
+}
+
+/* Events */
+.event-filters {
+  display: flex;
+  gap: 1.25rem;
+  align-items: end;
+  flex-wrap: wrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.filter-field {
+  min-width: 190px;
+}
+
+.filter-field label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+#events-list {
+  list-style: none;
+  padding: 0;
+}
+
+#events-list li {
+  background: var(--surface);
+  border-left: 4px solid var(--ocean-mid);
+  margin-bottom: 0.7rem;
+  padding: 0.8rem 1rem;
+}
+
+#events-list a {
+  text-decoration: none;
+}
+
+#events-list a:hover,
+#events-list a:focus-visible {
+  text-decoration: underline;
+}
+
+.event-detail {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 750;
+  color: #fff;
+  margin: 0.25rem 0 0.75rem;
+}
+
+.badge-easy {
+  background: #246b3d;
+}
+
+.badge-hard {
+  background: #9b1c31;
+}
+
+/* Coral Reef fact-reveal activity.
+   Without JavaScript, the buttons are hidden and every fact remains
+   readable. With JavaScript, facts are hidden until their button is used. */
+.js-only {
+  display: none;
+}
+
+.js .js-only {
+  display: block;
+}
+
+.fact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.fact-tile-wrapper {
+  min-width: 0;
+}
+
+.fact-tile {
+  width: 100%;
+  aspect-ratio: 1;
+  margin-top: 0;
+  background: var(--ocean-dark);
+  color: #fff;
+  font-size: 2rem;
+}
+
+.fact-tile:hover,
+.fact-tile:focus-visible {
+  background: var(--ocean-mid);
+}
+
+.fact-tile.revealed {
+  display: none !important;
+}
+
+.fact-text {
+  margin: 0;
+  padding: 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+}
+
+.js .fact-text {
+  display: none;
+}
+
+.js .fact-text.revealed {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  header {
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  header nav {
+    width: 100%;
+    gap: 0.6rem 1rem;
+  }
+
+  main {
+    width: min(100% - 1.25rem, 980px);
+    padding-top: 1rem;
+  }
+
+  .zone-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fact-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .event-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .filter-field {
+    min-width: 0;
+  }
+}
+
+@media (max-width: 420px) {
+  .fact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.filter-submit {
+  margin-top: 0;
+  align-self: end;
+}
